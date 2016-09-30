@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
@@ -11,10 +12,14 @@ android {
         versionCode rootProject.ext.versionCode as Integer
         versionName rootProject.ext.versionName as String
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 // build a jar with source files
@@ -38,5 +43,8 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+repositories {
+    mavenCentral()
 }
 
